@@ -2,7 +2,7 @@ require 'tempfile'
 
 module Hashipack
   class Client
-    def build(content, on_output: lambda{}, on_progress: lambda{}, estimated_duration: 300)
+    def build(content, on_output: lambda {}, on_progress: lambda {}, estimated_duration: 300)
       template = Tempfile.new(["template", ".pkr.hcl"])
       template.write(content)
       template.close
@@ -14,7 +14,6 @@ module Hashipack
       artifacts = []
 
       IO.popen(command).each do |line|
-
         message = Message.parse(line)
 
         if message.type == :ui
@@ -37,7 +36,7 @@ module Hashipack
         end
       end
 
-      return artifacts
+      artifacts
     end
   end
 end

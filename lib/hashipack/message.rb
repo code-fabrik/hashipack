@@ -3,12 +3,12 @@ module Hashipack
     def self.parse(line)
       msg = Message.new(line)
       if msg.ui?
-        return UiMessage.new(line)
+        UiMessage.new(line)
       elsif msg.artifact?
-        return ArtifactMessage.new(line)
+        ArtifactMessage.new(line)
       else
         puts "Ignoring unknown message type #{msg.type}"
-        return Message.new(line)
+        Message.new(line)
       end
     end
 
