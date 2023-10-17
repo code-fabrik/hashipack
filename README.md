@@ -1,5 +1,8 @@
 # Hashipack
 
+[![Gem Version](https://badge.fury.io/rb/hashipack.svg)](https://badge.fury.io/rb/hashipack)
+[![Ruby Code Style](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://github.com/standardrb/standard)
+
 Hashipack is a Ruby client for Hashicorp's Packer.
 
 It allows building images and provides live status updates about the progress, as well as the resulting artifacts.
