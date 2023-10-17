@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 
   spec.summary = "Ruby client for Hashicorps Packer"
   spec.description = "None."
-  spec.homepage = "https://code-fabrik.ch"
+  spec.homepage = "https://github.com/code-fabrik/hashipack"
   spec.required_ruby_version = ">= 2.6.0"
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
