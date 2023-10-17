@@ -1,24 +1,81 @@
 # Packr
 
-TODO: Delete this and the text below, and describe your gem
+Packr is a Ruby client for Hashicorp's Packer.
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/packr`. To experiment with that code, run `bin/console` for an interactive prompt.
+It allows building images and provides live status updates about the progress, as well as the resulting artifacts.
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
-
 Install the gem and add to the application's Gemfile by executing:
 
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+```bash
+bundle add packr
+```
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+```bash
+gem install packr
+```
+
+And require it in your program:
+
+```ruby
+require 'packr'
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+Create a client:
+
+```ruby
+client = Packr::Client.new
+```
+
+Build an image by providing the template:
+
+```ruby
+template = File.read('myimage.pkr.hcl')
+result = client.build(template)
+```
+
+Subscribe to log messages and print them as they arrive:
+
+```ruby
+print_message = -> (message) { puts message }
+result = client.build(template, on_output: print_message)
+
+# This would print something like
+# ...
+# ==> myvm.hcloud.example: Shutting down server...
+# ==> myvm.hcloud.example: Creating snapshot ...
+# ==> myvm.hcloud.example: This can take some time
+# ...
+```
+
+In addition to the template, you can also provide a lambda that is called when the builder progresses. You
+need to define an estimated build duration in seconds so Packr can calculate the progress.
+
+```ruby
+print_message = -> (message) { puts message }
+print_progress = -> (progress) { puts progress }
+result = client.build(template, on_output: print_message, on_progress: print_progress, estimated_duration: 300)
+```
+
+The result contains an array of artifacts that were generated during the build:
+
+```ruby
+print result
+# => [#<Packr::Artifact @builder_id="hcloud.builder", @id="131872234", @string="A snapshot was created: 'packer-1697561712'">]
+```
+
+This usually includes the following fields:
+
+| Field | Value | Example |
+|---|---|---|
+| builder_id | The plugin name | `"hcloud.builder"` |
+| id | The platforms native artifact id  | `"131872234"`, which is the ID of the image on Hetzner Cloud |
+| string | The completion message by Packer | `"A snapshot was created: 'packer-1697561712'"` |
 
 ## Development
 
@@ -28,4 +85,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/packr.
+Bug reports and pull requests are welcome on GitHub at https://github.com/code-fabrik/packr.

@@ -2,7 +2,6 @@
 
 require_relative "packr/version"
 
-module Packr
-  class Error < StandardError; end
-  # Your code goes here...
-end
+require 'packr/client'
+require 'packr/message'
+require 'packr/artifact'
