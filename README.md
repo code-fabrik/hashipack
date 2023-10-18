@@ -35,11 +35,20 @@ Create a client:
 client = Hashipack::Client.new
 ```
 
-Build an image by providing the template:
+Build an image by providing the filename of the template:
 
 ```ruby
-template = File.read('myimage.pkr.hcl')
+template = 'myimage.pkr.hcl'
 result = client.build(template)
+```
+
+If the template and the assets are in a different folder:
+
+```ruby
+Dir.chdir('./app/templates') do
+  template = 'myimage.pkr.hcl'
+  result = client.build(template)
+end
 ```
 
 Subscribe to log messages and print them as they arrive:

@@ -2,11 +2,8 @@ require 'tempfile'
 
 module Hashipack
   class Client
-    def build(content, on_output: lambda {}, on_progress: lambda {}, estimated_duration: 300)
-      template = Tempfile.new(["template", ".pkr.hcl"])
-      template.write(content)
-      template.close
-      command = "packer -machine-readable build #{template.path}"
+    def build(filename, on_output: lambda {}, on_progress: lambda {}, estimated_duration: 300)
+      command = "packer -machine-readable build #{filename}"
 
       initial_timestamp = 99999999999
       last_timestamp = 0
