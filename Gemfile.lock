@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    hashipack (0.1.3)
+    hashipack (0.1.4)
 
 GEM
   remote: https://rubygems.org/
@@ -78,4 +78,4 @@ DEPENDENCIES
   standard (~> 1.3)
 
 BUNDLED WITH
-   2.4.10
+   2.5.11

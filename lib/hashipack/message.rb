@@ -13,6 +13,8 @@ module Hashipack
     end
 
     def initialize(line)
+      line = line.force_encoding('UTF-8')
+      line = line.encode('UTF-8', invalid: :replace, undef: :replace, replace: '')
       @parts = line.split(",")
     end
 
