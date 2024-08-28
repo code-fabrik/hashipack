@@ -39,7 +39,7 @@ module Hashipack
         stderr.each do |line|
           puts "Error: #{line}"
         end
-      
+
         puts "Exit status: #{wait_thr.value}"
       end
 

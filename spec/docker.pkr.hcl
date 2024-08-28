@@ -14,4 +14,15 @@ source "docker" "example" {
 
 build {
   sources = ["source.docker.example"]
+
+  provisioner "file" {
+    source = "assets/"
+    destination = "/tmp"
+  }
+
+  provisioner "shell" {
+    inline = [
+      "cat /tmp/static.txt",
+    ]
+  }
 }
