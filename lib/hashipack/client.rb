@@ -3,10 +3,11 @@ require 'open3'
 
 module Hashipack
   class Client
-    def build(path, on_output: lambda {}, on_progress: lambda {}, estimated_duration: 300, debug: false)
+    def build(path, on_output: lambda {}, on_progress: lambda {}, estimated_duration: 300, debug: false, machine_readable: true, additional_options: '')
       directory, filename = File.split(path)
       debug_option = debug ? '-debug' : ''
-      command = "packer -machine-readable build #{debug_option} #{filename}"
+      machine_readable_option = machine_readable ? '-machine-readable' : ''
+      command = "packer build #{machine_readable_option} #{debug_option} #{additional_options} #{filename}"
 
       initial_timestamp = 99999999999
       last_timestamp = 0
