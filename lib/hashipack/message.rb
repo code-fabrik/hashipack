@@ -7,8 +7,7 @@ module Hashipack
       elsif msg.artifact?
         ArtifactMessage.new(line)
       else
-        puts "Ignoring unknown message type #{msg.type}"
-        Message.new(line)
+        OtherMessage.new(line)
       end
     end
 
@@ -42,6 +41,16 @@ module Hashipack
 
     def text
       @parts[4]
+    end
+  end
+
+  class OtherMessage < Message
+    def type
+      :other
+    end
+
+    def text
+      @parts.join(',')
     end
   end
 

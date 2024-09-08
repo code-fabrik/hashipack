@@ -35,6 +35,8 @@ module Hashipack
             artifacts[message.number] ||= Artifact.new
             artifacts[message.number].append_info(message.key, message.value)
 
+          elsif message.type == :other
+            on_output.call(message.text)
           end
         end
 
