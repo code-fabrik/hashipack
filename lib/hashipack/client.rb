@@ -5,8 +5,8 @@ module Hashipack
   class Client
     def build(path, on_output: lambda {}, on_progress: lambda {}, estimated_duration: 300, debug: false)
       directory, filename = File.split(path)
-      debug_suffix = debug ? ' -debug' : ''
-      command = "packer -machine-readable build #{filename}#{debug_suffix}"
+      debug_option = debug ? '-debug' : ''
+      command = "packer -machine-readable build #{debug_option} #{filename}"
 
       initial_timestamp = 99999999999
       last_timestamp = 0
